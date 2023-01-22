@@ -1,24 +1,50 @@
-import logo from './logo.svg';
+/* eslint-disable react/no-unknown-property */
 import './App.css';
+import { Suspense } from 'react';
+import { Loader, OrbitControls, Sky, Stars } from '@react-three/drei';
+import { Canvas } from '@react-three/fiber';
+import { ACESFilmicToneMapping, sRGBEncoding } from 'three';
+import Experience from './Experience';
+import { Physics } from '@react-three/rapier';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <Suspense fallback={<Loader />}>
+      <Canvas
+        shadows
+        camera={{
+          fov: 45,
+          near: 0.1,
+          far: 400,
+          position: [0, 10, 40],
+        }}
+        gl={{
+          antialias: true,
+          toneMapping: ACESFilmicToneMapping,
+          outputEncoding: sRGBEncoding,
+        }}
+      >
+        <Physics
+          gravity={[0, -30, 0]}
+          defaultContactMaterial={{
+            friction: 0.5,
+            restitution: 0.5,
+          }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <Experience />
+        </Physics>
+        <OrbitControls makeDefault dampingFactor={0.3} />
+        {/* <Sky /> */}
+        <Stars
+          radius={100}
+          depth={50}
+          count={5000}
+          factor={4}
+          saturation={0}
+          fade
+        />
+      </Canvas>
+    </Suspense>
   );
 }
 
