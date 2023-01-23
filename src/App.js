@@ -24,25 +24,10 @@ function App() {
           outputEncoding: sRGBEncoding,
         }}
       >
-        <Physics
-          gravity={[0, -30, 0]}
-          defaultContactMaterial={{
-            friction: 0.5,
-            restitution: 0.5,
-          }}
-        >
-          <Experience />
-        </Physics>
+        <Experience />
         <OrbitControls makeDefault dampingFactor={0.3} />
         {/* <Sky /> */}
-        <Stars
-          radius={100}
-          depth={50}
-          count={5000}
-          factor={4}
-          saturation={0}
-          fade
-        />
+        <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade />
       </Canvas>
     </Suspense>
   );
