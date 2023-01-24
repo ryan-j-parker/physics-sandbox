@@ -1,41 +1,48 @@
 /* eslint-disable react/no-unknown-property */
-import { RigidBody } from '@react-three/rapier';
+import { useFrame } from '@react-three/fiber';
+import { RigidBody, useRapier } from '@react-three/rapier';
 import { useControls } from 'leva';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export default function Marble() {
   const ref = useRef();
 
-  const color = useControls({ marble: 'purple' });
-  const [clicked, setClicked] = useState();
+  // const color = useControls({ marble: '#9B1D20' });
+  // const [clicked, setClicked] = useState();
 
-//   useEffect(() => {
-//     {
-//       clicked
-//         ? ref.applyImpulse([0, 1, 0], [0, 0, 0], true)
-//         : ref.applyImpulse([0, 1, 0], [0, 0, 0], true);
-//     }
-//   });
+  const { rapier, world } = useRapier();
+  const rapierWorld = world.raw();
+
+  const jump = () => {
+    const origin = ref.current.translation();
+    const mass = ref.current.mass();
+    origin.y -= 0;
+    const direction = { x: 0, y: -1, z: 0 };
+    const ray = new rapier.Ray(origin, direction);
+    const hit = rapierWorld.castRay(ray, 10, true);
+
+    ref.current.applyImpulse({ x: 0, y: mass * 10, z: 0 });
+    ref.current.applyTorqueImpulse({ x: 0, y: mass * 2, z: 0.5 });
+  };
 
   return (
     <RigidBody
-      type="kinematicPosition"
+      ref={ref}
+      type="dynamic"
       colliders="ball"
-      friction={0.5}
-      restitution={0.5}
-      //   rotation={[0, 0.5, 0]}
-      mass={4}
+      friction={0.2}
+      restitution={0.9}
+      mass={1}
       gravityScale={1}
-      onClick={() => {
-        setClicked(!clicked);
-        console.log(clicked);
-      }}
+      onClick={jump}
+      position={[-3, 2, -3]}
     >
-      <mesh ref={ref} castShadow receiveShadow position={[0, 5, 0]}>
+      <mesh castShadow receiveShadow>
         <icosahedronGeometry args={[2, 1]} />
-        <meshLambertMaterial color={color.marble} wireframe={true} />
+        <meshLambertMaterial
+        // color={color.marble}
+        // wireframe={true}
+        />
       </mesh>
     </RigidBody>
   );

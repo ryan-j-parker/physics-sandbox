@@ -24,7 +24,7 @@ export default function AnimatedBox() {
   const color = `hsl(${Math.random() * 360}, 50%, 50%)`;
 
   return (
-    <RigidBody gravityScale={0} colliders="cuboid" position={[5, 3, 5]}>
+    <RigidBody mass={4} gravityScale={1} colliders="cuboid" position={[4, 3, 4]}>
       <mesh
         ref={ref}
         onClick={() => {

@@ -8,19 +8,43 @@ import Floor from './Floor';
 import AnimatedBox from './AnimatedBox';
 import Marble from './Marble';
 import Knight from './Knight';
+import { Suspense } from 'react';
+import { Loader, OrbitControls, Sky, Stars } from '@react-three/drei';
+import { Canvas } from '@react-three/fiber';
+import { ACESFilmicToneMapping, sRGBEncoding } from 'three';
 
 export default function Experience() {
   const ref = useRef();
 
   return (
     <>
-      <ambientLight
-        intensity={1}
+      <Suspense fallback={<Loader />}>
+        <Canvas
+          shadows
+          camera={{
+            fov: 45,
+            near: 0.1,
+            far: 400,
+            position: [0, 10, 40],
+          }}
+          gl={{
+            antialias: true,
+            toneMapping: ACESFilmicToneMapping,
+            outputEncoding: sRGBEncoding,
+          }}
+        >
+          <Physics gravity={[0, -9.81, 0]}>
+            <OrbitControls makeDefault dampingFactor={0.3} />
+            {/* <Sky /> */}
+            <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade />
 
-        // color="red"
-      />
-      {/* <Stage contactShadow={{ resolution: 1024, scale: 1 }}> */}
-      {/* <RigidBody
+            <ambientLight
+              intensity={1}
+
+              // color="red"
+            />
+            {/* <Stage contactShadow={{ resolution: 1024, scale: 1 }}> */}
+            {/* <RigidBody
           type="Static"
           shape={{
             type: 'Cuboid',
@@ -30,8 +54,8 @@ export default function Experience() {
           rotation={[0, 0.5, 0]}
         > */}
 
-      {/* </RigidBody> */}
-      <hemisphereLight
+            {/* </RigidBody> */}
+            {/* <hemisphereLight
         skyColor="purple"
         groundColor="red"
         intensity={5}
@@ -40,22 +64,17 @@ export default function Experience() {
         height={10}
         lookAt={[0, 0, 0]}
         // castShadow
-      />
-      <Physics
-        gravity={[0, -9.81, 0]}
-        // defaultContactMaterial={{
-        //   friction: 0.5,
-        //   restitution: 0.5,
-        // }}
-      >
-        <Debug />
-        <Knight />
-        <Marble />
-        <Cube />
-        <AnimatedBox />
-        <Floor />
-      </Physics>
-      {/* </Stage> */}
+      /> */}
+            <Debug />
+            {/* <Knight /> */}
+            <Marble />
+            <Cube />
+            <AnimatedBox />
+            <Floor />
+          </Physics>
+          {/* </Stage> */}
+        </Canvas>
+      </Suspense>
     </>
   );
 }

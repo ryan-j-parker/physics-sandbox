@@ -25,7 +25,7 @@ export default function Cube() {
 
   return (
     <RigidBody
-      gravityScale={0}
+      gravityScale={1}
     >
       <mesh
         ref={ref}

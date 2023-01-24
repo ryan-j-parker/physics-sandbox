@@ -8,3 +8,142 @@ body,
   height: 100%;
   background: #000000;
 }
+
+.animated {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 200px;
+  font-size: 4rem;
+  background: #ff00cc;
+  color: #ffff00;
+}
+
+.animated-svg {
+  position: fixed;
+  left: 50%;
+  top: 60%;
+  transform: translate(-50%, -50%);
+  height: 300px;
+  width: auto;
+  stroke-dasharray: 5;
+  stroke-dashoffset: 0;
+  animation: load 5s linear infinite;
+  transform-origin: center;
+}
+
+@keyframes load {
+  0% {
+    transform: rotate(0deg);
+    stroke-dashoffset: 50;
+  }
+  50% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    transform: rotate(360deg);
+    stroke-dashoffset: -50;
+  }
+}
+
+/* .svg {
+  --speed: 5s;
+} */
+
+/* @media (prefers-reduced-motion: reduce) {
+  .svg {
+    --speed: 10s;
+  }
+} */
+
+.path {
+  /* ... */
+  animation: load var(--speed, 5s) linear infinite;
+}
+
+.svg text {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 600;
+  font-size: 80px;
+}
+
+.dot {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+svg {
+  position: fixed;
+  height: 100vh;
+  /* top: calc(50vh / 2); */
+  width: 100vw;
+}
+
+.looking {
+  animation: looking 1s ease-in-out infinite;
+}
+
+@keyframes looking {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+#dev {
+  color: pink;
+  font-size: 60px;
+}
+
+.looking {
+  font-size: 40px;
+}
+
+.container {
+  padding: 2rem;
+}
+
+.article {
+  position: relative;
+}
+
+.article svg {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.captionGroup {
+  bottom: 0;
+  width: 100%;
+  padding: 1rem 1.5rem;
+  background: lavender;
+  color: darkslateblue;
+  border-radius: 12px;
+}
+
+.caption {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 1.2rem;
+}
+
+.cta {
+  border-bottom: 1px solid slateblue;
+}
+
+@media (min-width: 22rem) {
+  .captionGroup {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
