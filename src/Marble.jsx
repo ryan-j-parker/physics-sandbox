@@ -1,6 +1,8 @@
 /* eslint-disable react/no-unknown-property */
+import { useFrame } from '@react-three/fiber';
 import { RigidBody } from '@react-three/rapier';
 import { useRef } from 'react';
+import * as THREE from 'three';
 
 export default function Marble() {
   const ref = useRef();
@@ -17,10 +19,17 @@ export default function Marble() {
     ref.current.applyTorqueImpulse({ x: 0, y: mass * 2, z: 0.5 });
   };
 
+  useFrame((state) => {
+    const time = state.clock.getElapsedTime();
+    const rotation = new THREE.Quaternion();
+    rotation.setFromEuler(new THREE.Euler(time * -0.5, 0, 0));
+    ref.current.setNextKinematicRotation(rotation);
+  });
+
   return (
     <RigidBody
       ref={ref}
-      type="dynamic"
+      type="kinematic"
       colliders="ball"
       friction={0.2}
       restitution={0.9}
