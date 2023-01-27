@@ -8,6 +8,7 @@ import { RigidBody } from '@react-three/rapier';
 
 export default function AnimatedBox() {
   const ref = useRef();
+  const [clicked, setClicked] = useState();
 
   useFrame(() => {
     {
@@ -19,9 +20,8 @@ export default function AnimatedBox() {
     }
   });
 
-  const [clicked, setClicked] = useState();
-
   const color = `hsl(${Math.random() * 360}, 50%, 50%)`;
+  console.log('clicked', clicked);
 
   return (
     <RigidBody mass={4} gravityScale={1} colliders="cuboid" position={[4, 3, 4]}>

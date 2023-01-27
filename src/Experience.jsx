@@ -33,18 +33,19 @@ export default function Experience() {
             outputEncoding: sRGBEncoding,
           }}
         >
-          <Physics gravity={[0, -9.81, 0]}>
-            <OrbitControls makeDefault dampingFactor={0.3} />
-            {/* <Sky /> */}
-            <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade />
+          <Stage>
+            <Physics gravity={[0, -9.81, 0]}>
+              <OrbitControls makeDefault dampingFactor={0.3} />
+              {/* <Sky /> */}
+              <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade />
 
-            <ambientLight
-              intensity={1}
+              <ambientLight
+                intensity={1}
 
-              // color="red"
-            />
-            {/* <Stage contactShadow={{ resolution: 1024, scale: 1 }}> */}
-            {/* <RigidBody
+                // color="red"
+              />
+              {/* <Stage contactShadow={{ resolution: 1024, scale: 1 }}> */}
+              {/* <RigidBody
           type="Static"
           shape={{
             type: 'Cuboid',
@@ -54,8 +55,8 @@ export default function Experience() {
           rotation={[0, 0.5, 0]}
         > */}
 
-            {/* </RigidBody> */}
-            {/* <hemisphereLight
+              {/* </RigidBody> */}
+              {/* <hemisphereLight
         skyColor="purple"
         groundColor="red"
         intensity={5}
@@ -65,14 +66,14 @@ export default function Experience() {
         lookAt={[0, 0, 0]}
         // castShadow
       /> */}
-            <Debug />
-            {/* <Knight /> */}
-            <Marble />
-            <Cube />
-            <AnimatedBox />
-            <Floor />
-          </Physics>
-          {/* </Stage> */}
+              <Debug />
+              {/* <Knight /> */}
+              <Marble />
+              <Cube />
+              <AnimatedBox />
+              <Floor />
+            </Physics>
+          </Stage>
         </Canvas>
       </Suspense>
     </>
